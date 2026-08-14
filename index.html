@@ -1,0 +1,1184 @@
+<!doctype html>
+<html lang="id">
+	<head>
+		<script>
+			window["__codeletBootstrap__"] = JSON.parse(
+				'{"A":"A","B":"20260813-05-b52571e","C":{"Abril Fatface":"YACgEZbkUVE,0","Alfa Slab One":"YACgEYS9sJU,0","Anton":"YACgEcYqQ-A,0","Archivo":"YAHO2-t-jNE,0","Arial":"YAGyDvJ_4Ts,0","Bebas Neue":"YACgESME5ew,0","Bricolage Grotesque":"YAFyMcdwzpc,0","Canva Sans":"YAFLd8sKbwc,2","Caveat":"YALBs2ploWQ,0","Comic Sans MS":"YAHO2VMiyZo,0","Cormorant Garamond":"YAFdJhX-538,0","Courier New":"YAGzXiGs0_8,0","DM Sans":"YAD1aU3sLnI,0","DM Serif Display":"YAD1aYG82rc,0","Forum":"YACgEcnnqB4,0","Fraunces":"YAEul-FRQw4,0","Georgia":"YAGzXkO0pEM,0","Helvetica Neue":"YAFcf6CtJfI,0","Impact":"YAFcfnjI7Vk,0","Inter":"YAFdJvSyp_k,3","Iowan Old Style":"YAGNIFa8j9o,0","Jacques Francois":"YAHO2a5g66Q,0","JetBrains Mono":"YAFdJksXcAk,0","Libre Baskerville":"YACgEUFdPdA,0","Manrope":"YAHO2b2feC4,0","Merriweather":"YACgEXvHxxs,0","Montserrat":"YADLjI9qxTA,0","Nunito":"YACgEX8C5Gg,0","Oleo Script":"YACgEQQ14jI,0","Phantom Sans":"YAHO2E8Pb88,0","Playfair Display":"YACgEYmuCJE,0","Poppins":"YAFdJjbTu24,1","Press Start 2P":"YAFyGr-8pmQ,0","Quicksand":"YADWjpfPmdk,0","Raleway":"YACgEVg3xZg,0","Segoe UI":"YAHNdRD1Klw,0","Source Sans 3":"YAG4lO1Mj10,0","Spectral":"YAHO2rVUHIM,0","Times New Roman":"YAGzXW3gftg,0","Times":"YAGzXW3gftg,0","Ubuntu":"YACgERDU--Q,0","Work Sans":"YAGXhLOKv44,0","Yellowtail":"YACgEYG4kG4,0","ui-monospace":"YADlN8CFZ8Q,0","ui-sans-serif":"YACkoN-xg4g,0"}}',
+			);
+		</script>
+		<script
+			src="/_sdk/7949ff62d67710d5.telemetry_sdk.js"
+			integrity="sha512-KIvXA82Di44YY/RH9/63A9MuTuavYgDFG8PfErJn7Wli4K0LAOk+coo/aPXk3+ZNL96nHh9VYD4PE+fLes+laQ=="
+		></script>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+		/>
+		<meta name="theme-color" content="#0a0a0a" />
+		<title>What If I</title>
+		<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700;900&amp;family=Space+Mono&amp;display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				background: #0a0a0a;
+			}
+			body {
+				font-family: "Fraunces", serif;
+				overflow: hidden;
+			}
+			.page-shell {
+				position: relative;
+				width: 100%;
+				height: 100vh;
+				height: 100dvh;
+				overflow: hidden;
+			}
+			.main-content {
+				overflow: hidden;
+			}
+			.mono {
+				font-family: "Space Mono", monospace;
+			}
+
+			.scanlines {
+				position: fixed;
+				inset: 0;
+				pointer-events: none;
+				z-index: 100;
+				background: repeating-linear-gradient(
+					0deg,
+					transparent,
+					transparent 2px,
+					rgba(0, 0, 0, 0.03) 2px,
+					rgba(0, 0, 0, 0.03) 4px
+				);
+			}
+			.grain {
+				position: fixed;
+				inset: 0;
+				pointer-events: none;
+				z-index: 99;
+				opacity: 0.04;
+				background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+			}
+
+			.vertical-text {
+				writing-mode: vertical-rl;
+				text-orientation: mixed;
+			}
+
+			@keyframes typewriter {
+				from {
+					opacity: 0;
+					transform: translateY(8px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+			.lyrics-line {
+				opacity: 0;
+				animation: typewriter 0.4s ease forwards;
+			}
+
+			@keyframes glitch {
+				0%,
+				100% {
+					transform: translate(0);
+				}
+				20% {
+					transform: translate(-2px, 1px);
+				}
+				40% {
+					transform: translate(2px, -1px);
+				}
+				60% {
+					transform: translate(-1px, 2px);
+				}
+				80% {
+					transform: translate(1px, -2px);
+				}
+			}
+			.glitch-hover:hover {
+				animation: glitch 0.3s ease;
+			}
+
+			.lyrics-panel {
+				position: relative;
+				padding-left: 1.25rem;
+				border-left: 2px solid rgba(255, 255, 255, 0.65);
+			}
+			.track-kicker {
+				color: rgba(255, 255, 255, 0.55);
+			}
+			.lyrics-heading {
+				color: #fff;
+				text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+			}
+			.track-tab {
+				position: relative;
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+				min-width: 9rem;
+				padding: 0.75rem 1rem;
+				border: 1px solid rgba(255, 255, 255, 0.22);
+				border-radius: 0.25rem;
+				background: rgba(8, 8, 8, 0.28);
+				backdrop-filter: blur(8px);
+				color: rgba(255, 255, 255, 0.65);
+				text-align: left;
+				cursor: pointer;
+			}
+			.track-tab::after {
+				content: "";
+				position: absolute;
+				left: 0;
+				bottom: -1px;
+				width: 0;
+				height: 2px;
+				background: #fff;
+				transition: width 0.3s ease;
+			}
+			.track-tab:hover,
+			.track-tab:focus-visible {
+				border-color: rgba(255, 255, 255, 0.65);
+				color: #fff;
+			}
+			.track-tab:focus-visible {
+				outline: 2px solid #fff;
+				outline-offset: 3px;
+			}
+			.track-number {
+				font-size: 0.65rem;
+				color: rgba(255, 255, 255, 0.45);
+			}
+			.tab-active {
+				background: rgba(255, 255, 255, 0.12);
+				border-color: rgba(255, 255, 255, 0.8);
+				color: #fff;
+			}
+			.tab-active::after {
+				width: 100%;
+			}
+
+			@keyframes fade-in {
+				from {
+					opacity: 0;
+				}
+				to {
+					opacity: 1;
+				}
+			}
+			.fade-in {
+				animation: fade-in 1s ease forwards;
+			}
+
+			.hero-video {
+				position: absolute;
+				inset: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				filter: brightness(0.55) saturate(1.2);
+				transform: scale(1.02);
+				transition:
+					transform 1.4s ease,
+					filter 1.4s ease;
+			}
+			.hero-video.scene-1 {
+				filter: brightness(0.48) saturate(0.9) sepia(0.16);
+				transform: scale(1.08) translateX(-1.5%);
+			}
+			.hero-video.scene-2 {
+				filter: brightness(0.42) saturate(1.35) hue-rotate(-8deg);
+				transform: scale(1.12) translateX(1.5%);
+			}
+			.scene-flash {
+				position: absolute;
+				inset: 0;
+				z-index: 6;
+				pointer-events: none;
+				background: rgba(255, 245, 225, 0.16);
+				opacity: 0;
+			}
+			.scene-flash.is-changing {
+				animation: scene-change 0.8s ease;
+			}
+			@keyframes scene-change {
+				0%,
+				100% {
+					opacity: 0;
+				}
+				35% {
+					opacity: 1;
+				}
+			}
+
+			.audio-control {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.65rem;
+				padding: 0.6rem 0.85rem;
+				border: 1px solid rgba(255, 255, 255, 0.35);
+				border-radius: 9999px;
+				color: #fff;
+				background: rgba(0, 0, 0, 0.3);
+				backdrop-filter: blur(8px);
+				cursor: pointer;
+			}
+			.audio-control:hover {
+				background: rgba(255, 255, 255, 0.15);
+				border-color: #fff;
+			}
+			.audio-control:focus-visible {
+				outline: 2px solid #fff;
+				outline-offset: 3px;
+			}
+			.audio-icon {
+				width: 1rem;
+				height: 1rem;
+				flex: none;
+			}
+			.audio-bars {
+				display: inline-flex;
+				align-items: center;
+				gap: 2px;
+				height: 12px;
+			}
+			.audio-bars span {
+				width: 2px;
+				height: 4px;
+				background: currentColor;
+				border-radius: 2px;
+			}
+			.audio-control.is-playing .audio-bars span {
+				animation: audio-wave 0.8s ease-in-out infinite alternate;
+			}
+			.audio-control.is-playing .audio-bars span:nth-child(2) {
+				animation-delay: -0.4s;
+			}
+			.audio-control.is-playing .audio-bars span:nth-child(3) {
+				animation-delay: -0.2s;
+			}
+			@keyframes audio-wave {
+				to {
+					height: 12px;
+				}
+			}
+
+			#lyrics-container {
+				min-height: 200px;
+			}
+			.lyrics-line {
+				color: rgba(255, 255, 255, 0.5);
+				transition:
+					color 0.35s ease,
+					text-shadow 0.35s ease,
+					letter-spacing 0.35s ease;
+			}
+			.lyrics-line.is-past {
+				color: rgba(255, 255, 255, 0.32);
+			}
+			.lyrics-line.is-active {
+				color: #fff;
+				font-weight: 700;
+				letter-spacing: 0.015em;
+				text-shadow: 0 0 22px rgba(255, 255, 255, 0.35);
+			}
+			.lyrics-gap {
+				height: 0.8em;
+			}
+			.experience-overlay {
+				position: fixed;
+				inset: 0;
+				z-index: 200;
+				display: grid;
+				place-items: center;
+				padding: 1.5rem;
+				background: radial-gradient(
+					circle at center,
+					rgba(30, 20, 15, 0.35),
+					rgba(5, 5, 5, 0.94)
+				);
+				color: #fff;
+				text-align: center;
+				transition:
+					opacity 0.8s ease,
+					visibility 0.8s ease;
+			}
+			.intro-overlay::before {
+				content: "";
+				position: absolute;
+				inset: 1.25rem;
+				border: 1px solid rgba(255, 255, 255, 0.15);
+				pointer-events: none;
+			}
+			.experience-card {
+				position: relative;
+				max-width: 42rem;
+			}
+			.experience-eyebrow {
+				margin-bottom: 1rem;
+				font-size: 0.65rem;
+				letter-spacing: 0.45em;
+				text-transform: uppercase;
+				color: rgba(255, 255, 255, 0.55);
+			}
+			.experience-title {
+				margin: 0 0 1rem;
+				font-size: clamp(3rem, 11vw, 7rem);
+				font-weight: 900;
+				line-height: 0.9;
+				letter-spacing: -0.04em;
+			}
+			.experience-copy {
+				max-width: 30rem;
+				margin: 0 auto 2rem;
+				color: rgba(255, 255, 255, 0.65);
+			}
+			.experience-button {
+				min-height: 48px;
+				padding: 0.8rem 1.25rem;
+				border: 1px solid rgba(255, 255, 255, 0.55);
+				border-radius: 999px;
+				background: rgba(255, 255, 255, 0.08);
+				color: #fff;
+				font-family: "Space Mono", monospace;
+				font-size: 0.7rem;
+				letter-spacing: 0.2em;
+				text-transform: uppercase;
+				cursor: pointer;
+				transition:
+					background 0.25s ease,
+					color 0.25s ease;
+			}
+			.experience-button:hover,
+			.experience-button:focus-visible {
+				background: #fff;
+				color: #111;
+			}
+			body.experience-started .intro-overlay,
+			.ending-overlay:not(.is-visible) {
+				opacity: 0;
+				visibility: hidden;
+				pointer-events: none;
+			}
+			.ending-quote {
+				margin: 0 0 2rem;
+				font-size: clamp(2rem, 7vw, 4.5rem);
+				font-weight: 700;
+				line-height: 1.05;
+			}
+			.track-navigation,
+			.bottom-bar,
+			.music-control {
+				transition:
+					opacity 0.4s ease,
+					transform 0.4s ease;
+			}
+			body.focus-mode .track-navigation,
+			body.focus-mode .bottom-bar,
+			body.focus-mode .music-control {
+				opacity: 0;
+				visibility: hidden;
+				pointer-events: none;
+				transform: translateY(8px);
+			}
+			.main-content,
+			.top-controls {
+				transition:
+					opacity 0.4s ease,
+					visibility 0.4s ease;
+			}
+			body:not(.experience-started) .main-content,
+			body:not(.experience-started) .top-controls {
+				opacity: 0;
+				visibility: hidden;
+				pointer-events: none;
+			}
+			body.focus-mode .main-content {
+				opacity: 0;
+				visibility: hidden;
+				pointer-events: none;
+			}
+			.focus-lyrics-overlay {
+				position: fixed;
+				inset: 0;
+				z-index: 150;
+				background: linear-gradient(
+					to top,
+					rgba(5, 5, 5, 0.68),
+					rgba(5, 5, 5, 0.12) 62%,
+					rgba(5, 5, 5, 0.28)
+				);
+				color: #fff;
+				opacity: 0;
+				visibility: hidden;
+				pointer-events: none;
+				transition:
+					opacity 0.45s ease,
+					visibility 0.45s ease;
+			}
+			body.focus-mode .focus-lyrics-overlay {
+				opacity: 1;
+				visibility: visible;
+				pointer-events: auto;
+			}
+			.focus-lyrics-shell {
+				display: flex;
+				flex-direction: column;
+				width: min(100%, 58rem);
+				height: 100%;
+				margin: 0 auto;
+				padding: calc(1.5rem + env(safe-area-inset-top)) 1.5rem
+					calc(1rem + env(safe-area-inset-bottom));
+			}
+			.focus-close {
+				position: fixed;
+				right: calc(1.5rem + env(safe-area-inset-right));
+				bottom: calc(1.5rem + env(safe-area-inset-bottom));
+				z-index: 2;
+				flex: none;
+				min-width: 44px;
+				min-height: 44px;
+				border: 1px solid rgba(255, 255, 255, 0.35);
+				border-radius: 50%;
+				background: rgba(255, 255, 255, 0.06);
+				color: #fff;
+				font-size: 1.25rem;
+				cursor: pointer;
+			}
+			.original-lyrics {
+				position: relative;
+				display: grid;
+				flex: 1;
+				place-items: center;
+				overflow: hidden;
+				padding: 4rem 1rem;
+			}
+			.original-section {
+				display: contents;
+			}
+			.original-section-label {
+				display: none;
+			}
+			.original-line {
+				grid-area: 1 / 1;
+				width: 100%;
+				margin: 0;
+				font-size: clamp(2rem, 5vw, 4rem);
+				font-weight: 700;
+				line-height: 1.15;
+				color: #fff;
+				text-align: center;
+				opacity: 0;
+				visibility: hidden;
+				transform: translateY(20px) scale(0.98);
+				text-shadow: 0 3px 28px rgba(0, 0, 0, 0.8);
+				transition:
+					opacity 0.4s ease,
+					transform 0.4s ease;
+			}
+			.original-line.is-active {
+				opacity: 1;
+				visibility: visible;
+				transform: translateY(0) scale(1);
+			}
+
+			@media (max-width: 640px) {
+				.top-controls {
+					top: calc(1rem + env(safe-area-inset-top));
+					right: calc(1rem + env(safe-area-inset-right));
+					left: calc(1rem + env(safe-area-inset-left));
+					justify-content: flex-end;
+				}
+				.audio-control {
+					min-height: 44px;
+					padding: 0.65rem 0.8rem;
+					font-size: 0.65rem;
+				}
+				.main-content {
+					display: block;
+					overflow-y: auto;
+					overflow-x: hidden;
+					padding: 0 1.125rem calc(1rem + env(safe-area-inset-bottom));
+					-webkit-overflow-scrolling: touch;
+					overscroll-behavior-y: contain;
+					scrollbar-width: none;
+				}
+				.main-content::-webkit-scrollbar,
+				.track-navigation::-webkit-scrollbar {
+					display: none;
+				}
+				.lyrics-content {
+					margin-top: clamp(7rem, 20svh, 10rem);
+					margin-bottom: 1.5rem;
+				}
+				.lyrics-panel {
+					padding-left: 1rem;
+				}
+				.lyrics-heading {
+					font-size: clamp(1.9rem, 9vw, 2.5rem);
+					line-height: 1.05;
+					margin-bottom: 1.25rem;
+				}
+				#lyrics-container {
+					min-height: 0;
+				}
+				#lyrics-text {
+					font-size: 1rem;
+					line-height: 1.6;
+				}
+				.track-navigation {
+					flex-wrap: nowrap;
+					overflow-x: auto;
+					margin-right: -1.125rem;
+					padding-right: 1.125rem;
+					padding-bottom: 0.4rem;
+					scroll-snap-type: x proximity;
+					scrollbar-width: none;
+				}
+				.track-tab {
+					flex: 0 0 auto;
+					min-width: 9.5rem;
+					min-height: 46px;
+					scroll-snap-align: start;
+				}
+				.bottom-bar {
+					min-height: 1.5rem;
+				}
+				.hero-video {
+					object-position: center center;
+				}
+				.focus-lyrics-shell {
+					padding-right: 1.125rem;
+					padding-left: 1.125rem;
+				}
+				.original-lyrics {
+					padding: 4rem 0.5rem;
+				}
+				.original-line {
+					font-size: clamp(1.65rem, 8vw, 2.5rem);
+				}
+			}
+
+			@media (max-width: 900px) and (max-height: 500px) {
+				.lyrics-content {
+					margin-top: 5.5rem;
+				}
+				.lyrics-heading {
+					font-size: 1.75rem;
+				}
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				.audio-bars span,
+				.lyrics-line,
+				.scene-flash,
+				.hero-video {
+					animation: none !important;
+					transition: none !important;
+				}
+			}
+		</style>
+		<script
+			src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"
+			type="text/javascript"
+		></script>
+		<script
+			src="/_sdk/0e8d3a91e1c6f495.data_sdk.js"
+			type="text/javascript"
+			integrity="sha512-c00oDoGjsMgluCLLEyVl3suwEkgjOGGplVFbsilUoBg4aMKNmsL3mwsc9r0dPn95qiSZyjBousQXgROkAW7p/w=="
+		></script>
+		<script
+			src="/_sdk/eba18683f23e5798.resizing_sdk.js"
+			type="text/javascript"
+			integrity="sha512-E0UWUllhwPXaNJtjyTKXWKrIE+FruPfFpO4mRmMDP2LI+U9bOizy5npCq6xx/JyWcvSK7D3TFf2wFR2Mha9kbA=="
+		></script>
+	</head>
+	<body data-template-id="__page-root">
+		<div class="scanlines"></div>
+		<div class="grain"></div>
+		<section
+			id="experience-intro"
+			class="experience-overlay intro-overlay"
+			aria-label="Pembuka"
+		>
+			<div class="experience-card">
+				<p class="experience-eyebrow mono">Sebuah pengalaman visual</p>
+				<h1 class="experience-title">What If I Call</h1>
+				<p class="experience-copy">
+					Kenakan earphone, naikkan volume secukupnya, dan biarkan
+					setiap kata menemukan waktunya.
+				</p>
+				<button
+					id="enter-experience"
+					class="experience-button"
+					type="button"
+				>
+					Masuk &amp; Dengarkan
+				</button>
+			</div>
+		</section>
+		<!-- Full screen layout -->
+		<div class="page-shell">
+			<!-- Background video -->
+			<video
+				id="background-video"
+				class="hero-video"
+				autoplay
+				muted
+				loop
+				playsinline
+				preload="auto"
+				aria-hidden="true"
+			>
+				<source src="vidio.mp4" type="video/mp4" />
+			</video>
+			<audio id="background-audio" preload="metadata">
+				<source src="What If I Call.mp3" type="audio/mpeg" />
+			</audio>
+			<div id="scene-flash" class="scene-flash"></div>
+			<!-- Dark gradient overlay -->
+			<div
+				class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20 z-10"
+			></div>
+			<!-- Vertical side text -->
+			<div
+				class="absolute left-4 top-1/2 -translate-y-1/2 z-30 hidden md:block"
+			>
+				<p
+					data-template-id="side-text"
+					class="canva-text vertical-text mono text-xs tracking-[0.3em] uppercase"
+				></p>
+			</div>
+			<!-- Top right corner info -->
+			<div
+				class="top-controls absolute top-6 right-6 z-30 flex items-center gap-2 text-right"
+			>
+				<button
+					id="audio-toggle"
+					class="audio-control music-control mono text-xs uppercase tracking-widest transition-all"
+					type="button"
+					aria-label="Putar musik"
+					aria-pressed="false"
+				>
+					<span class="audio-bars" aria-hidden="true"
+						><span></span><span></span><span></span
+					></span>
+					<span id="audio-label">Putar musik</span>
+				</button>
+				<button
+					id="focus-toggle"
+					class="audio-control mono text-xs uppercase tracking-widest transition-all"
+					type="button"
+					aria-label="Aktifkan mode fokus"
+					aria-pressed="false"
+				>
+					<span aria-hidden="true">◎</span>
+					<span id="focus-label">Fokus</span>
+				</button>
+			</div>
+			<!-- Main content -->
+			<div
+				class="main-content absolute inset-0 z-20 flex flex-col justify-end p-6 md:p-12 lg:p-16"
+			>
+				<!-- Lyrics area -->
+				<div class="lyrics-content mb-8 max-w-3xl">
+					<div id="lyrics-container" class="lyrics-panel mb-7">
+						<p
+							id="track-kicker"
+							class="track-kicker mono text-[10px] uppercase tracking-[0.35em] mb-2"
+						></p>
+						<h2
+							id="lyrics-heading"
+							class="lyrics-heading text-3xl md:text-5xl font-bold leading-none mb-5"
+						></h2>
+						<p
+							id="lyrics-text"
+							class="text-lg md:text-xl leading-relaxed font-light"
+							style="
+								color: rgba(255, 255, 255, 0.85);
+								font-family: &quot;Fraunces&quot;, serif;
+							"
+						></p>
+					</div>
+					<!-- Lyric navigation -->
+					<div
+						class="track-navigation flex gap-3 flex-wrap"
+						role="tablist"
+						aria-label="Pilih bagian kata"
+					>
+						<button
+							class="track-tab mono text-xs transition-all tab-active"
+							type="button"
+							role="tab"
+							aria-selected="true"
+							onclick="switchTrack(0)"
+						>
+							<span class="track-number">01</span>
+							<span class="track-name">Ruang Malam</span>
+						</button>
+						<button
+							class="track-tab mono text-xs transition-all"
+							type="button"
+							role="tab"
+							aria-selected="false"
+							onclick="switchTrack(1)"
+						>
+							<span class="track-number">02</span>
+							<span class="track-name">Usai Gerimis</span>
+						</button>
+						<button
+							class="track-tab mono text-xs transition-all"
+							type="button"
+							role="tab"
+							aria-selected="false"
+							onclick="switchTrack(2)"
+						>
+							<span class="track-number">03</span>
+							<span class="track-name">Frekuensi</span>
+						</button>
+					</div>
+				</div>
+				<!-- Bottom bar -->
+				<div
+					class="bottom-bar flex items-center justify-between border-t border-white/10 pt-4"
+				>
+					<p
+						data-template-id="credit-text"
+						class="canva-text mono text-xs"
+					></p>
+					<p
+						data-template-id="track-time"
+						class="canva-text mono text-xs"
+					></p>
+				</div>
+			</div>
+		</div>
+		<section
+			id="focus-lyrics-screen"
+			class="focus-lyrics-overlay"
+			aria-label="Lirik asli What If I Call"
+			aria-hidden="true"
+		>
+			<div class="focus-lyrics-shell">
+				<button
+					id="focus-close"
+					class="focus-close"
+					type="button"
+					aria-label="Tutup lirik"
+				>
+					×
+				</button>
+				<div
+					id="original-lyrics"
+					class="original-lyrics"
+					aria-live="polite"
+				></div>
+			</div>
+		</section>
+		<section
+			id="ending-screen"
+			class="experience-overlay ending-overlay"
+			aria-label="Penutup"
+			aria-hidden="true"
+		>
+			<div class="experience-card">
+				<p class="experience-eyebrow mono">Sampai di penghujung</p>
+				<p class="ending-quote">
+					“Beberapa kata hanya berani hidup di dalam lagu.”
+				</p>
+				<button
+					id="replay-experience"
+					class="experience-button"
+					type="button"
+				>
+					Putar Lagi
+				</button>
+			</div>
+		</section>
+		<script
+			src="/_sdk/9d3258af1f44fbf1.editing_sdk.js"
+			integrity="sha512-3+HAndrk+HZiTGp2ISu+/bgYK1Xci+cLW89chzrkSCXjd9L9cNh/u9apmMgkep6XBKvCauldOAnZkyNhCjybeA=="
+		></script>
+		<script>
+			const tracks = [
+				{
+					chapter: "Fragmen pertama",
+					title: "Ruang di Antara Bintang",
+					lyrics: "Malam ini bintang bersinar terang\nMenerangi jalan yang ku tempuh\nMelodi mengalun di keheningan\nMembawa hati ke tempat teduh\n\nDengarkan suara angin bernyanyi\nMembisikkan kata yang tak terucap",
+				},
+				{
+					chapter: "Fragmen kedua",
+					title: "Setelah Gerimis Reda",
+					lyrics: "Hujan turun membasahi bumi\nSeperti air mata yang jatuh perlahan\nNamun di balik awan yang kelabu\nMatahari tetap menanti di sana\n\nKita berbaring di bawah langit malam\nDua jiwa yang menyatu dalam irama",
+				},
+				{
+					chapter: "Fragmen ketiga",
+					title: "Frekuensi yang Tertinggal",
+					lyrics: "Langkah kaki di jalanan sunyi\nGema musik dari kejauhan\nSetiap detik terasa bermakna\nSaat nada bertemu dengan rasa\n\nBiarkan musik menjadi bahasa\nYang menghubungkan hati ke hati",
+				},
+			];
+
+			const originalLyrics = [
+				{
+					section: "Verse 1",
+					lines: [
+						"So what if I call?",
+						"And you pick up the phone?",
+						"And I use this holiday",
+						"To make my way to your ghost",
+					],
+				},
+				{
+					section: "Verse 2",
+					lines: [
+						"You walked in the party, your coat was untied",
+						"Slammin' the door 'cause it's colder outside",
+						"Now I won't forget that moment like the blink of an eye",
+						"You're off to the beach now 'til the weather gets nice",
+					],
+				},
+				{
+					section: "Chorus",
+					lines: [
+						"But what if I call?",
+						"And you pick up the phone?",
+						"And I use this holiday to make my way to your ghost",
+						"But, what if you're lonely?",
+						"And you know I am too?",
+						"And I get the chance to say ‘I wish I didn't, but I miss you’",
+						"I miss you",
+					],
+				},
+				{
+					section: "Bridge",
+					lines: [
+						"You know it's true",
+						"Yeah, I miss you",
+						"You know it's true",
+					],
+				},
+				{
+					section: "Chorus",
+					lines: [
+						"So, what if I call?",
+						"And you pick up the phone?",
+						"And I use this holiday to make my way to your ghost",
+						"But, what if you're lonely?",
+						"And you know I am too?",
+						"And I get the chance to say ‘I wish I didn't, but I miss you’",
+						"I miss you",
+					],
+				},
+			];
+
+			let current = -1;
+			let touchStart = null;
+			const backgroundAudio = document.getElementById("background-audio");
+			const backgroundVideo = document.getElementById("background-video");
+			const audioToggle = document.getElementById("audio-toggle");
+			const audioLabel = document.getElementById("audio-label");
+			const focusToggle = document.getElementById("focus-toggle");
+			const focusLabel = document.getElementById("focus-label");
+			const enterButton = document.getElementById("enter-experience");
+			const introScreen = document.getElementById("experience-intro");
+			const replayButton = document.getElementById("replay-experience");
+			const endingScreen = document.getElementById("ending-screen");
+			const focusLyricsScreen = document.getElementById(
+				"focus-lyrics-screen",
+			);
+			const focusClose = document.getElementById("focus-close");
+			const originalLyricsContainer =
+				document.getElementById("original-lyrics");
+			const sceneFlash = document.getElementById("scene-flash");
+			const mainContent = document.querySelector(".main-content");
+
+			function updateAudioControl(isPlaying) {
+				audioToggle.classList.toggle("is-playing", isPlaying);
+				audioToggle.setAttribute("aria-pressed", String(isPlaying));
+				audioToggle.setAttribute(
+					"aria-label",
+					isPlaying ? "Jeda musik" : "Putar musik",
+				);
+				audioLabel.textContent = isPlaying
+					? "Jeda musik"
+					: "Putar musik";
+			}
+
+			async function playAudio() {
+				try {
+					await backgroundAudio.play();
+					updateAudioControl(true);
+				} catch (error) {
+					updateAudioControl(false);
+				}
+			}
+
+			function toggleAudio() {
+				if (backgroundAudio.paused) {
+					playAudio();
+				} else {
+					backgroundAudio.pause();
+				}
+			}
+
+			function updateVideoScene(idx) {
+				backgroundVideo.classList.remove(
+					"scene-0",
+					"scene-1",
+					"scene-2",
+				);
+				backgroundVideo.classList.add(`scene-${idx}`);
+				sceneFlash.classList.remove("is-changing");
+				void sceneFlash.offsetWidth;
+				sceneFlash.classList.add("is-changing");
+			}
+
+			function switchTrack(idx, seekToSection = true) {
+				const next = Math.max(0, Math.min(tracks.length - 1, idx));
+				if (
+					seekToSection &&
+					Number.isFinite(backgroundAudio.duration)
+				) {
+					backgroundAudio.currentTime =
+						(backgroundAudio.duration / tracks.length) * next +
+						0.01;
+				}
+				if (current === next) {
+					updateActiveLine(0);
+					return;
+				}
+				current = next;
+				document.querySelectorAll(".track-tab").forEach((btn, i) => {
+					const isActive = i === next;
+					btn.classList.toggle("tab-active", isActive);
+					btn.setAttribute("aria-selected", String(isActive));
+				});
+				renderLyrics(tracks[next]);
+				updateVideoScene(next);
+			}
+
+			function renderLyrics(track) {
+				const container = document.getElementById("lyrics-text");
+				const heading = document.getElementById("lyrics-heading");
+				const kicker = document.getElementById("track-kicker");
+				let syncIndex = 0;
+				container.innerHTML = "";
+				heading.textContent = track.title;
+				kicker.textContent = track.chapter;
+				heading.classList.remove("fade-in");
+				void heading.offsetWidth;
+				heading.classList.add("fade-in");
+				track.lyrics.split("\n").forEach((line, i) => {
+					const span = document.createElement("span");
+					span.className = "lyrics-line block";
+					span.style.animationDelay = i * 0.08 + "s";
+					span.textContent = line || "\u00A0";
+					if (line.trim()) {
+						span.dataset.lineIndex = syncIndex;
+						syncIndex += 1;
+					} else {
+						span.classList.add("lyrics-gap");
+					}
+					container.appendChild(span);
+				});
+				updateActiveLine(0);
+			}
+
+			function updateActiveLine(activeIndex) {
+				document
+					.querySelectorAll(".lyrics-line[data-line-index]")
+					.forEach((line) => {
+						const index = Number(line.dataset.lineIndex);
+						line.classList.toggle(
+							"is-active",
+							index === activeIndex,
+						);
+						line.classList.toggle("is-past", index < activeIndex);
+					});
+			}
+
+			function renderOriginalLyrics() {
+				let lineIndex = 0;
+				originalLyricsContainer.innerHTML = "";
+				originalLyrics.forEach((group) => {
+					const section = document.createElement("section");
+					const label = document.createElement("h3");
+					label.className = "original-section-label";
+					label.textContent = group.section;
+					section.className = "original-section";
+					section.appendChild(label);
+					group.lines.forEach((text) => {
+						const line = document.createElement("p");
+						line.className = "original-line";
+						line.dataset.originalIndex = lineIndex;
+						line.textContent = text;
+						section.appendChild(line);
+						lineIndex += 1;
+					});
+					originalLyricsContainer.appendChild(section);
+				});
+			}
+
+			function updateOriginalLyrics(progress) {
+				const totalLines = originalLyrics.reduce(
+					(total, group) => total + group.lines.length,
+					0,
+				);
+				const nextActiveLine = Math.min(
+					totalLines - 1,
+					Math.floor(progress * totalLines),
+				);
+				document.querySelectorAll(".original-line").forEach((line) => {
+					const index = Number(line.dataset.originalIndex);
+					line.classList.toggle(
+						"is-active",
+						index === nextActiveLine,
+					);
+				});
+			}
+
+			function syncLyricsToAudio() {
+				if (
+					!Number.isFinite(backgroundAudio.duration) ||
+					!backgroundAudio.duration
+				)
+					return;
+				const progress = Math.min(
+					backgroundAudio.currentTime / backgroundAudio.duration,
+					0.999999,
+				);
+				const trackProgress = progress * tracks.length;
+				const trackIndex = Math.floor(trackProgress);
+				if (trackIndex !== current) switchTrack(trackIndex, false);
+				const lineCount = tracks[trackIndex].lyrics
+					.split("\n")
+					.filter((line) => line.trim()).length;
+				const lineIndex = Math.min(
+					lineCount - 1,
+					Math.floor((trackProgress - trackIndex) * lineCount),
+				);
+				updateActiveLine(lineIndex);
+				updateOriginalLyrics(progress);
+			}
+
+			function toggleFocusMode() {
+				const isFocused = document.body.classList.toggle("focus-mode");
+				focusToggle.setAttribute("aria-pressed", String(isFocused));
+				focusToggle.setAttribute(
+					"aria-label",
+					isFocused
+						? "Keluar dari mode fokus"
+						: "Aktifkan mode fokus",
+				);
+				focusLabel.textContent = isFocused ? "Keluar" : "Fokus";
+				focusLyricsScreen.setAttribute(
+					"aria-hidden",
+					String(!isFocused),
+				);
+				if (isFocused) {
+					syncLyricsToAudio();
+					focusClose.focus();
+				} else {
+					focusToggle.focus();
+				}
+			}
+
+			function showEnding() {
+				if (document.body.classList.contains("focus-mode")) {
+					toggleFocusMode();
+				}
+				endingScreen.classList.add("is-visible");
+				endingScreen.setAttribute("aria-hidden", "false");
+				updateAudioControl(false);
+			}
+
+			backgroundAudio.volume = 0.7;
+			audioToggle.addEventListener("click", toggleAudio);
+			focusToggle.addEventListener("click", toggleFocusMode);
+			focusClose.addEventListener("click", toggleFocusMode);
+			backgroundAudio.addEventListener("play", () =>
+				updateAudioControl(true),
+			);
+			backgroundAudio.addEventListener("pause", () =>
+				updateAudioControl(false),
+			);
+			backgroundAudio.addEventListener("timeupdate", syncLyricsToAudio);
+			backgroundAudio.addEventListener(
+				"loadedmetadata",
+				syncLyricsToAudio,
+			);
+			backgroundAudio.addEventListener("ended", showEnding);
+
+			enterButton.addEventListener("click", () => {
+				document.body.classList.add("experience-started");
+				introScreen.setAttribute("aria-hidden", "true");
+				backgroundVideo.play().catch(() => {});
+				playAudio();
+			});
+
+			replayButton.addEventListener("click", () => {
+				endingScreen.classList.remove("is-visible");
+				endingScreen.setAttribute("aria-hidden", "true");
+				backgroundAudio.currentTime = 0;
+				switchTrack(0, false);
+				playAudio();
+			});
+
+			mainContent.addEventListener(
+				"touchstart",
+				(event) => {
+					if (event.target.closest(".track-navigation")) return;
+					const touch = event.changedTouches[0];
+					touchStart = { x: touch.clientX, y: touch.clientY };
+				},
+				{ passive: true },
+			);
+			mainContent.addEventListener(
+				"touchend",
+				(event) => {
+					if (!touchStart) return;
+					const touch = event.changedTouches[0];
+					const deltaX = touch.clientX - touchStart.x;
+					const deltaY = touch.clientY - touchStart.y;
+					touchStart = null;
+					if (
+						Math.abs(deltaX) < 55 ||
+						Math.abs(deltaX) < Math.abs(deltaY)
+					)
+						return;
+					const nextTrack = deltaX < 0 ? current + 1 : current - 1;
+					if (nextTrack >= 0 && nextTrack < tracks.length) {
+						switchTrack(nextTrack);
+					}
+				},
+				{ passive: true },
+			);
+
+			document.addEventListener("keydown", (event) => {
+				if (
+					event.key === "Escape" &&
+					document.body.classList.contains("focus-mode")
+				) {
+					toggleFocusMode();
+				}
+			});
+
+			renderOriginalLyrics();
+			switchTrack(0, false);
+			updateOriginalLyrics(0);
+		</script>
+	</body>
+</html>
