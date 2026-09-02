@@ -256,7 +256,7 @@
 					0 0 44px rgba(224, 164, 88, calc(0.08 + var(--bass) * 0.4));
 			}
 			.stack-line.is-held {
-				opacity: 0.5;
+				opacity: 0.15;
 			}
 			.stack-line .k-word {
 				background: linear-gradient(var(--ink), var(--ink)) no-repeat 0 0;
@@ -673,15 +673,16 @@
 				},
 			];
 
-			// Detik kemunculan tiap baris — hasil ekstraksi onset vokal dari audio.
+			// Detik kemunculan tiap baris — hasil ekstraksi onset vokal (HPSS)
+			// dari audio; V1/V2 mengikuti pola frasa reguler ~4,8-5,0 dtk.
 			const lineCues = [
-				5.45, 10.7, 16.7, 22.28,
-				31.0, 38.2, 43.8, 51.15,
+				3.3, 8.15, 12.89, 17.7,
+				31.0, 36.71, 41.73, 46.72,
 				57.9, 62.8, 68.2, 76.2, 79.9, 84.6, 94.8,
-				99.4, 103.9, 108.5,
-				121.13, 124.9, 129.66, 134.84, 137.68, 139.4, 147.96,
+				99.75, 103.45, 108.7,
+				121.13, 124.6, 129.3, 134.6, 137.68, 139.4, 147.96,
 			];
-			const HOLD_FADE = 5.5;
+			const HOLD_FADE = 4.5;
 
 			/* ============ Elemen ============ */
 			const song = document.getElementById("song");
@@ -1036,12 +1037,12 @@
 									item.line <= active + 2,
 							);
 							item.el.classList.remove("is-held");
-							if (isActive) {
-								item.el.querySelectorAll(".k-word").forEach((w) => {
-									w.classList.remove("k-filled");
-									w.style.backgroundSize = "0% 100%";
-								});
-							}
+							// Bersihkan sisa isian karaoke di SEMUA baris —
+							// style inline background-size tidak tertimpa CSS.
+							item.el.querySelectorAll(".k-word").forEach((w) => {
+								w.classList.remove("k-filled");
+								w.style.backgroundSize = "0% 100%";
+							});
 						} else {
 							item.el.classList.toggle(
 								"is-visible",
