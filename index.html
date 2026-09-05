@@ -368,6 +368,38 @@
 				display: block;
 			}
 
+			/* ---------- Petunjuk gesture ---------- */
+			.gesture-hint {
+				position: absolute;
+				left: 50%;
+				bottom: calc(6.45rem + env(safe-area-inset-bottom));
+				z-index: 45;
+				width: min(calc(100% - 3rem), 24rem);
+				margin: 0;
+				color: var(--dim);
+				font-family: "Space Mono", monospace;
+				font-size: 0.56rem;
+				letter-spacing: 0.11em;
+				line-height: 1.65;
+				text-align: center;
+				text-transform: uppercase;
+				opacity: 0;
+				pointer-events: none;
+				transform: translate(-50%, 0.5rem);
+				transition:
+					opacity 0.45s ease,
+					transform 0.45s ease;
+			}
+			.gesture-hint.is-visible {
+				opacity: 1;
+				transform: translate(-50%, 0);
+			}
+			@media (min-width: 700px) {
+				.gesture-hint {
+					display: none;
+				}
+			}
+
 			/* ---------- Intro & penutup ---------- */
 			.overlay {
 				position: fixed;
@@ -546,8 +578,8 @@
 			<!-- Kartu judul bab -->
 			<div class="scene-card main-ui" id="scene-card" aria-hidden="true">
 				<div>
-					<p class="kicker" id="card-kicker">Fragmen pertama</p>
-					<h2 id="card-title">Ruang di Antara Bintang</h2>
+					<p class="kicker" id="card-kicker">00:00 · Verse</p>
+					<h2 id="card-title">Colder Outside</h2>
 				</div>
 			</div>
 
@@ -562,6 +594,9 @@
 				<div class="segment"><div class="segment-fill"></div></div>
 			</nav>
 			<div class="time-bubble" id="time-bubble">00:00 / 02:40</div>
+			<p id="gesture-hint" class="gesture-hint main-ui" role="status">
+				↔ Geser untuk berpindah bab · Tarik garis atas untuk mencari
+			</p>
 
 			<!-- Satu-satunya tombol -->
 			<button
@@ -637,9 +672,9 @@
 			/* ============ Data ============ */
 			// Tiga bab mengikuti alur lagu: dingin di luar → pertanyaan → pengakuan.
 			const chapters = [
-				{ kicker: "di pesta itu", title: "Colder Outside" },
-				{ kicker: "pertanyaan yang menunggu", title: "What If I Call" },
-				{ kicker: "pengakuan terakhir", title: "I Miss You" },
+				{ time: "00:00", section: "Verse", title: "Colder Outside" },
+				{ time: "00:57", section: "Chorus", title: "What If I Call" },
+				{ time: "01:52", section: "Final Chorus", title: "I Miss You" },
 			];
 			const chapterCues = [0, 57.93, 112.64];
 
@@ -727,6 +762,7 @@
 			const ending = document.getElementById("ending");
 			const enterBtn = document.getElementById("enter");
 			const replayBtn = document.getElementById("replay");
+			const gestureHint = document.getElementById("gesture-hint");
 
 			const reducedMotion = window.matchMedia(
 				"(prefers-reduced-motion: reduce)",
@@ -921,7 +957,7 @@
 			let cardTimer = null;
 
 			function showSceneCard(idx) {
-				cardKicker.textContent = chapters[idx].kicker;
+				cardKicker.textContent = `${chapters[idx].time} · ${chapters[idx].section}`;
 				cardTitle.textContent = chapters[idx].title;
 				document.body.classList.add("card-show");
 				sceneCard.classList.add("is-shown");
@@ -1182,12 +1218,32 @@
 			});
 
 			/* ============ Intro / penutup ============ */
+			function showGestureHint() {
+				if (!window.matchMedia("(max-width: 699px)").matches) return;
+				try {
+					if (sessionStorage.getItem("what-if-call-gesture-hint"))
+						return;
+					sessionStorage.setItem(
+						"what-if-call-gesture-hint",
+						"shown",
+					);
+				} catch (error) {
+					// Tetap tampil bila penyimpanan browser tidak tersedia.
+				}
+				gestureHint.classList.add("is-visible");
+				setTimeout(
+					() => gestureHint.classList.remove("is-visible"),
+					4600,
+				);
+			}
+
 			enterBtn.addEventListener("click", () => {
 				document.body.classList.add("experience-started");
 				intro.classList.add("is-hidden");
 				intro.setAttribute("aria-hidden", "true");
 				bgVideo.play().catch(() => {});
 				showSceneCard(0);
+				setTimeout(showGestureHint, 2900);
 				play();
 			});
 
