@@ -8,6 +8,28 @@
 		/>
 		<meta name="theme-color" content="#070605" />
 		<title>What If I Call</title>
+		<meta
+			name="description"
+			content="Lirik What If I Call — Alex Crichton, dengan karaoke yang mengikuti lagu."
+		/>
+		<link rel="icon" type="image/png" href="icon-512.png" />
+		<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+		<!-- Pratinjau saat link dibagikan (WhatsApp, Instagram, X, dll.) -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="What If I Call?" />
+		<meta property="og:description" content="Biarkan lagunya yang menelepon." />
+		<meta property="og:url" content="https://khf20.github.io/What-if-i-call/" />
+		<meta
+			property="og:image"
+			content="https://khf20.github.io/What-if-i-call/og-image.png"
+		/>
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta name="twitter:card" content="summary_large_image" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
 			href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&amp;family=Space+Mono&amp;display=swap"
 			rel="stylesheet"
@@ -132,6 +154,15 @@
 				position: relative;
 				flex: 1;
 				height: 14px;
+				padding: 0;
+				border: 0;
+				background: none;
+				cursor: pointer;
+			}
+			.segment:focus-visible {
+				outline: 1px solid var(--amber);
+				outline-offset: 3px;
+				border-radius: 3px;
 			}
 			.segment::before {
 				content: "";
@@ -589,11 +620,12 @@
 				id="strip"
 				aria-label="Progres lagu — sentuh untuk pindah bagian, seret untuk mencari"
 			>
-				<div class="segment"><div class="segment-fill"></div></div>
-				<div class="segment"><div class="segment-fill"></div></div>
-				<div class="segment"><div class="segment-fill"></div></div>
+				<!-- aria-label tiap bagian diisi dari data `chapters` di skrip -->
+				<button class="segment" type="button"><span class="segment-fill"></span></button>
+				<button class="segment" type="button"><span class="segment-fill"></span></button>
+				<button class="segment" type="button"><span class="segment-fill"></span></button>
 			</nav>
-			<div class="time-bubble" id="time-bubble">00:00 / 02:40</div>
+			<div class="time-bubble" id="time-bubble">00:00</div>
 			<p id="gesture-hint" class="gesture-hint main-ui" role="status">
 				↔ Geser untuk berpindah bab · Tarik garis atas untuk mencari
 			</p>
@@ -664,84 +696,102 @@
 		<div class="scanlines" aria-hidden="true"></div>
 		<div class="grain" aria-hidden="true"></div>
 
-		<audio id="song" preload="auto">
-			<source src="What If I Call_spotdown.org.mp3" type="audio/mpeg" />
+		<audio id="song" preload="metadata">
+			<source src="song.mp3" type="audio/mpeg" />
 		</audio>
 
 		<script>
 			/* ============ Data ============ */
-			// Tiga bab mengikuti alur lagu: dingin di luar → pertanyaan → pengakuan.
-			const chapters = [
-				{ time: "00:00", section: "Verse", title: "Colder Outside" },
-				{ time: "00:57", section: "Chorus", title: "What If I Call" },
-				{ time: "01:52", section: "Final Chorus", title: "I Miss You" },
-			];
-			const chapterCues = [0, 57.93, 112.64];
+			// Lirik dalam format enhanced LRC: [mm:ss.xx] = awal baris,
+			// <mm:ss.xx> = awal tiap kata. Ini satu-satunya sumber teks & waktu
+			// lirik; untuk memperbaiki sinkron cukup ubah angka di sini.
+			const LRC = `
+[ti:What If I Call]
+[ar:Alex Crichton]
+[al:Merry Christmas, i miss you]
+[length:02:40]
 
+[00:02.00] <00:02.00> So <00:03.00> what <00:04.00> if <00:05.00> I <00:06.00> call?
+[00:07.00] <00:07.00> And <00:07.83> you <00:08.66> pick <00:09.50> up <00:10.33> the <00:11.16> phone
+[00:12.00] <00:12.00> And <00:12.60> I <00:13.20> use <00:13.80> this <00:14.40> holiday
+[00:15.00] <00:15.00> To <00:16.14> make <00:17.28> my <00:18.42> way <00:19.56> to <00:20.70> your <00:21.84> ghost
+[00:23.00] <00:23.00> You <00:24.00> walked <00:25.00> in <00:26.00> the <00:27.00> party, <00:28.00> your <00:29.00> coat <00:30.00> was <00:31.00> untied
+[00:32.00] <00:32.00> Slamming <00:33.28> the <00:34.56> door <00:35.84> 'cause <00:37.12> it's <00:38.40> colder <00:39.68> outside
+[00:41.00] <00:41.00> I <00:41.90> won't <00:42.80> forget <00:43.70> that <00:44.60> moment <00:45.50> like <00:46.40> the <00:47.30> blink <00:48.20> of <00:49.10> an <00:50.00> eye
+[00:51.00] <00:51.00> You're <00:51.63> off <00:52.26> to <00:52.90> the <00:53.53> beach <00:54.16> now <00:54.80> 'til <00:55.43> the <00:56.06> weather <00:56.70> gets <00:57.33> nice
+[00:58.00] <00:58.00> But <00:58.80> what <00:59.60> if <01:00.40> I <01:01.20> call?
+[01:02.00] <01:02.00> And <01:02.83> you <01:03.66> pick <01:04.50> up <01:05.33> the <01:06.16> phone
+[01:07.00] <01:07.00> And <01:07.60> I <01:08.20> use <01:08.80> this <01:09.40> holiday
+[01:10.00] <01:10.00> To <01:10.86> make <01:11.72> my <01:12.58> way <01:13.44> to <01:14.30> your <01:15.16> ghost
+[01:16.00] <01:16.00> Oh, <01:16.80> what <01:17.60> if <01:18.40> you're <01:19.20> lonely?
+[01:20.00] <01:20.00> And <01:20.83> you <01:21.66> know <01:22.50> I <01:23.33> am <01:24.16> too
+[01:25.00] <01:25.00> And <01:25.43> I <01:25.86> get <01:26.28> the <01:26.71> chance <01:27.14> to <01:27.57> say
+[01:28.00] <01:28.00> I <01:28.75> wish <01:29.50> I <01:30.25> didn't <01:31.00> but <01:31.75> I <01:32.50> miss <01:33.25> you
+[01:34.00] <01:34.00> I <01:35.66> miss <01:37.33> you
+[01:39.00] <01:39.00> You <01:40.00> know <01:41.00> it's <01:42.00> true
+[01:43.00] <01:43.00> Yeah, <01:44.25> I <01:45.50> miss <01:46.75> you
+[01:48.00] <01:48.00> You <01:49.00> know <01:50.00> it's <01:51.00> true
+[01:52.00] <01:52.00> So <01:53.00> what <01:54.00> if <01:55.00> I <01:56.00> call?
+[01:57.00] <01:57.00> And <01:57.66> you <01:58.33> pick <01:59.00> up <01:59.66> the <02:00.33> phone
+[02:01.00] <02:01.00> And <02:01.80> I <02:02.60> use <02:03.40> this <02:04.20> holiday
+[02:05.00] <02:05.00> To <02:05.86> make <02:06.72> my <02:07.58> way <02:08.44> to <02:09.30> your <02:10.16> ghost
+[02:11.00] <02:11.00> Oh, <02:11.80> what <02:12.60> if <02:13.40> you're <02:14.20> lonely?
+[02:15.00] <02:15.00> You <02:16.00> know <02:17.00> I <02:18.00> am <02:19.00> too
+[02:20.00] <02:20.00> And <02:20.43> I <02:20.86> get <02:21.28> the <02:21.71> chance <02:22.14> to <02:22.57> say
+[02:23.00] <02:23.00> I <02:23.60> wish <02:24.20> I <02:24.80> didn't <02:25.40> have <02:26.00> to <02:26.60> but <02:27.20> I <02:27.80> miss <02:28.40> you
+[02:29.00] <02:29.00> I <02:30.00> miss <02:31.00> you
+`;
+
+			// "mm:ss.xx" → detik.
+			function lrcTime(stamp) {
+				const [m, s] = stamp.split(":");
+				return Number(m) * 60 + Number(s);
+			}
+
+			// Hasil: [{ t, words: [{ t, text }] }], satu entri per baris lirik.
+			function parseLrc(src) {
+				const lines = [];
+				src.split("\n").forEach((raw) => {
+					const m = /^\[(\d+:\d+(?:\.\d+)?)\](.*)$/.exec(raw.trim());
+					if (!m) return; // lewati tag metadata seperti [ti:...]
+					const words = [];
+					const wordRe = /<(\d+:\d+(?:\.\d+)?)>\s*([^<]*)/g;
+					let w;
+					while ((w = wordRe.exec(m[2]))) {
+						const text = w[2].trim();
+						if (text) words.push({ t: lrcTime(w[1]), text });
+					}
+					lines.push({ t: lrcTime(m[1]), words });
+				});
+				return lines;
+			}
+
+			const lyrics = parseLrc(LRC);
+			const lineCues = lyrics.map((line) => line.t);
+
+			// Label bagian lagu, ditandai dari baris lirik pertamanya (indeks 0-based).
 			const songSections = [
-				{
-					label: "Verse 1",
-					lines: [
-						"So what if I call?",
-						"And you pick up the phone",
-						"And I use this holiday",
-						"To make my way to your ghost",
-					],
-				},
-				{
-					label: "Verse 2",
-					lines: [
-						"You walked in the party, your coat was untied",
-						"Slamming the door 'cause it's colder outside",
-						"Now I won't forget that moment like the blink of an eye",
-						"You're off to the beach now 'til the weather gets nice",
-					],
-				},
-				{
-					label: "Chorus",
-					lines: [
-						"But what if I call?",
-						"And you pick up the phone",
-						"And I use this holiday",
-						"To make my way to your ghost",
-						"Oh, what if you're lonely?",
-						"And you know I am too",
-						"And I get the chance to say",
-						"I wish I didn't but I miss you",
-						"I miss you",
-					],
-				},
-				{
-					label: "Bridge",
-					lines: [
-						"You know it's true",
-						"Yeah, I miss you",
-						"You know it's true",
-					],
-				},
-				{
-					label: "Final Chorus",
-					lines: [
-						"So what if I call?",
-						"And you pick up the phone",
-						"And I use this holiday",
-						"To make my way to your ghost",
-						"Oh, what if you're lonely",
-						"And you know I am too",
-						"And I get the chance to say",
-						"I wish I didn't but I miss you",
-						"I miss you",
-					],
-				},
+				{ label: "Verse 1", startLine: 0 },
+				{ label: "Verse 2", startLine: 4 },
+				{ label: "Chorus", startLine: 8 },
+				{ label: "Bridge", startLine: 17 },
+				{ label: "Final Chorus", startLine: 20 },
 			];
 
-			// Timestamp LRC dari rekaman 2:40; satu nilai untuk awal tiap baris lirik.
-			const lineCues = [
-				2.91, 7.56, 12.36, 15.35, 23.71, 32.97, 41.32, 51.19, 57.93,
-				62.42, 67.27, 70.29, 76.2, 80.71, 85.42, 88.22, 94.7, 96.49,
-				103.66, 108.46, 112.64, 117.31, 122.07, 125.01, 131.12, 133.34,
-				140.24, 143.31, 149.65,
+			// Tiga bab mengikuti alur lagu: dingin di luar → pertanyaan → pengakuan.
+			// Waktu bab diambil dari baris lirik pertamanya supaya selalu sinkron.
+			const chapters = [
+				{ startLine: 0, section: "Verse", title: "Colder Outside" },
+				{ startLine: 8, section: "Chorus", title: "What If I Call" },
+				{ startLine: 20, section: "Final Chorus", title: "I Miss You" },
 			];
+			const chapterCues = chapters.map((c, i) =>
+				i === 0 ? 0 : lineCues[c.startLine],
+			);
+			chapters.forEach((c, i) => {
+				c.time = fmt(chapterCues[i]);
+			});
+
 			const HOLD_FADE = 4.5;
 
 			/* ============ Elemen ============ */
@@ -845,6 +895,8 @@
 					);
 					segmentFills[i].style.width = `${(frac * 100).toFixed(2)}%`;
 					seg.classList.toggle("is-active", i === chapterIdx);
+					if (i === chapterIdx) seg.setAttribute("aria-current", "step");
+					else seg.removeAttribute("aria-current");
 				});
 				timeBubble.textContent = `${fmt(t)} / ${fmt(d)}`;
 			}
@@ -894,6 +946,17 @@
 			strip.addEventListener("pointercancel", () => {
 				stripDragging = false;
 				timeBubble.classList.remove("is-on");
+			});
+			// Sentuhan/klik ditangani pointerup di atas; klik dari keyboard
+			// (Enter/Spasi, `detail === 0`) memindahkan bab lewat tombol segmen.
+			segments.forEach((seg, i) => {
+				seg.setAttribute(
+					"aria-label",
+					`${chapters[i].section}: ${chapters[i].title} (${chapters[i].time})`,
+				);
+				seg.addEventListener("click", (e) => {
+					if (e.detail === 0) jumpToChapter(i);
+				});
 			});
 
 			/* ============ Putar / jeda ============ */
@@ -1012,33 +1075,28 @@
 			function buildStack() {
 				stackEl.innerHTML = "";
 				stackItems = [];
-				let lineIdx = 0;
-				songSections.forEach((section) => {
-					const kick = document.createElement("p");
-					kick.className = "stack-kicker";
-					kick.textContent = section.label;
-					stackEl.appendChild(kick);
-					stackItems.push({
-						el: kick,
-						type: "kicker",
-						line: lineIdx,
+				lyrics.forEach((line, lineIdx) => {
+					const section = songSections.find((s) => s.startLine === lineIdx);
+					if (section) {
+						const kick = document.createElement("p");
+						kick.className = "stack-kicker";
+						kick.textContent = section.label;
+						stackEl.appendChild(kick);
+						stackItems.push({ el: kick, type: "kicker", line: lineIdx });
+					}
+					const p = document.createElement("p");
+					p.className = "stack-line";
+					p.dataset.line = lineIdx;
+					line.words.forEach((word, i) => {
+						const span = document.createElement("span");
+						span.className = "k-word";
+						span.textContent = word.text;
+						p.appendChild(span);
+						if (i < line.words.length - 1)
+							p.appendChild(document.createTextNode(" "));
 					});
-					section.lines.forEach((text) => {
-						const p = document.createElement("p");
-						p.className = "stack-line";
-						p.dataset.line = lineIdx;
-						text.split(" ").forEach((word, i, arr) => {
-							const span = document.createElement("span");
-							span.className = "k-word";
-							span.textContent = word;
-							p.appendChild(span);
-							if (i < arr.length - 1)
-								p.appendChild(document.createTextNode(" "));
-						});
-						stackEl.appendChild(p);
-						stackItems.push({ el: p, type: "line", line: lineIdx });
-						lineIdx += 1;
-					});
+					stackEl.appendChild(p);
+					stackItems.push({ el: p, type: "line", line: lineIdx });
 				});
 			}
 
@@ -1074,25 +1132,26 @@
 
 			function fillWords(lineEl, t) {
 				const idx = Number(lineEl.dataset.line);
-				const start = lineCues[idx];
-				const words = lineEl.querySelectorAll(".k-word");
-				const next =
-					idx + 1 < lineCues.length ? lineCues[idx + 1] : start + 4;
-				// Isi kata dengan kecepatan menyanyi (~0,5 dtk/kata),
-				// bukan meratakannya sampai baris berikutnya muncul.
-				const sing = Math.max(
-					1.2,
-					Math.min(next - start - 0.25, words.length * 0.5),
-				);
-				const frac = Math.max(0, Math.min(1, (t - start) / sing));
-				const filled = Math.floor(frac * words.length);
-				words.forEach((w, i) => {
-					w.classList.toggle("k-filled", i < filled);
-					if (i === filled && filled < words.length) {
-						w.style.backgroundSize = `${((frac * words.length - filled) * 100).toFixed(1)}% 100%`;
-					} else if (i >= filled) {
-						w.style.backgroundSize = "0% 100%";
-					}
+				const timed = lyrics[idx].words;
+				const spans = lineEl.querySelectorAll(".k-word");
+				const nextLine =
+					idx + 1 < lineCues.length ? lineCues[idx + 1] : Infinity;
+				// Tiap kata terisi dari timestamp-nya sampai timestamp kata berikutnya.
+				// Kata terakhir memakai durasi kata sebelumnya (maks. sampai baris
+				// berikutnya) karena LRC tidak mencatat kapan kata itu selesai.
+				spans.forEach((span, i) => {
+					const start = timed[i].t;
+					const prevGap = i > 0 ? start - timed[i - 1].t : 0.6;
+					const end =
+						i + 1 < timed.length
+							? timed[i + 1].t
+							: Math.min(start + prevGap, nextLine);
+					const frac = Math.max(
+						0,
+						Math.min(1, (t - start) / Math.max(end - start, 0.05)),
+					);
+					span.classList.toggle("k-filled", frac >= 1);
+					span.style.backgroundSize = `${(frac * 100).toFixed(1)}% 100%`;
 				});
 			}
 
@@ -1171,6 +1230,15 @@
 			}
 
 			/* ============ Geser antar bab (sentuh) ============ */
+			// Gesture & tombol panah hanya aktif di layar utama, bukan saat
+			// intro atau penutup tampil.
+			function onMainScreen() {
+				return (
+					document.body.classList.contains("experience-started") &&
+					ending.classList.contains("is-hidden")
+				);
+			}
+
 			let touchStart = null;
 			document.addEventListener(
 				"touchstart",
@@ -1184,7 +1252,10 @@
 			document.addEventListener(
 				"touchend",
 				(e) => {
-					if (!touchStart) return;
+					if (!touchStart || !onMainScreen()) {
+						touchStart = null;
+						return;
+					}
 					const t = e.changedTouches[0];
 					const dx = t.clientX - touchStart.x;
 					const dy = t.clientY - touchStart.y;
@@ -1204,6 +1275,7 @@
 						e.target.tagName === "TEXTAREA")
 				)
 					return;
+				if (!onMainScreen()) return;
 				if (e.key === " " && !e.repeat) {
 					const tag =
 						e.target instanceof HTMLElement ? e.target.tagName : "";
@@ -1268,10 +1340,53 @@
 					title: "What If I Call",
 					artist: "Alex Crichton",
 					album: "Merry Christmas, I Miss You",
+					artwork: [
+						{ src: "icon-512.png", sizes: "512x512", type: "image/png" },
+					],
 				});
-				navigator.mediaSession.setActionHandler("play", play);
-				navigator.mediaSession.setActionHandler("pause", () =>
-					song.pause(),
+				// Kontrol di lock screen / notifikasi. Bab = "lagu" berikut/sebelumnya.
+				const seekTo = (sec) => {
+					const d = song.duration;
+					if (!Number.isFinite(d) || d <= 0) return;
+					song.currentTime = Math.max(0, Math.min(d - 0.05, sec));
+					syncAll(true);
+					updateProgress();
+				};
+				const handlers = {
+					play,
+					pause: () => song.pause(),
+					nexttrack: () => jumpToChapter(chapterIdx + 1),
+					previoustrack: () => jumpToChapter(chapterIdx - 1),
+					seekto: (details) => seekTo(details.seekTime),
+					seekforward: (details) =>
+						seekTo(song.currentTime + (details.seekOffset || 10)),
+					seekbackward: (details) =>
+						seekTo(song.currentTime - (details.seekOffset || 10)),
+				};
+				Object.entries(handlers).forEach(([action, handler]) => {
+					try {
+						navigator.mediaSession.setActionHandler(action, handler);
+					} catch (error) {
+						// Browser lama tidak mengenal semua aksi; lewati saja.
+					}
+				});
+				// Posisi untuk bilah progres di lock screen.
+				const updatePositionState = () => {
+					if (!("setPositionState" in navigator.mediaSession)) return;
+					const d = song.duration;
+					if (!Number.isFinite(d) || d <= 0) return;
+					try {
+						navigator.mediaSession.setPositionState({
+							duration: d,
+							playbackRate: song.playbackRate,
+							position: Math.min(song.currentTime, d),
+						});
+					} catch (error) {
+						// Abaikan nilai posisi yang tidak valid.
+					}
+				};
+				["loadedmetadata", "play", "pause", "seeked"].forEach((type) =>
+					song.addEventListener(type, updatePositionState),
 				);
 			}
 
